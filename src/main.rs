@@ -4,13 +4,13 @@ mod uniforms;
 mod noise;
 mod shaders;
 mod triangle;
-mod sphere;
+mod obj_loader;
 mod renderer;
 
 use raylib::prelude::*;
 use framebuffer::Framebuffer;
 use uniforms::*;
-use sphere::{create_sphere, create_sphere_indices};
+use obj_loader::ObjModel;
 use renderer::render;
 
 const WIDTH: u32 = 800;
@@ -29,11 +29,13 @@ fn main() {
     let mut framebuffer = Framebuffer::new(WIDTH, HEIGHT);
     framebuffer.set_background_color(Color::new(10, 5, 20, 255));
 
-    // Crear geometría de la esfera (nuestra estrella)
-    let slices = 40;
-    let stacks = 40;
-    let sphere_vertices = create_sphere(1.0, slices, stacks);
-    let sphere_indices = create_sphere_indices(slices, stacks);
+    // Cargar geometría de la esfera desde archivo OBJ
+    println!("📦 Cargando modelo 3D desde assets/sphere.obj...");
+    let obj_model = ObjModel::load("assets/sphere.obj")
+        .expect("Error cargando el modelo OBJ. Asegúrate de que assets/sphere.obj existe.");
+    
+    let sphere_vertices = obj_model.vertices;
+    let sphere_indices = obj_model.indices;
 
     // Configurar uniforms (parámetros globales para los shaders)
     let mut uniforms = Uniforms::new();

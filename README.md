@@ -25,6 +25,8 @@ Este proyecto implementa una estrella animada utilizando únicamente una esfera 
 
 ```
 sol/
+├── assets/
+│   └── sphere.obj        # Modelo 3D de la esfera
 ├── src/
 │   ├── main.rs           # Loop principal y configuración
 │   ├── framebuffer.rs    # Framebuffer personalizado
@@ -33,7 +35,7 @@ sol/
 │   ├── noise.rs          # Funciones de ruido (Perlin, Cellular, etc.)
 │   ├── shaders.rs        # Vertex y Fragment shaders
 │   ├── triangle.rs       # Rasterización de triángulos
-│   ├── sphere.rs         # Generación de geometría esférica
+│   ├── obj_loader.rs     # Cargador de archivos OBJ
 │   └── renderer.rs       # Pipeline de renderizado
 ├── Cargo.toml
 └── README.md
@@ -41,7 +43,26 @@ sol/
 
 ## 🎨 Conceptos Implementados
 
-### 1. Framebuffer Personalizado
+### 1. Carga de Geometría desde Archivo OBJ
+
+El proyecto carga la geometría de la esfera desde un archivo **OBJ** (`assets/sphere.obj`) en lugar de generarla proceduralmente. El cargador implementado en `obj_loader.rs`:
+
+- **Lee el formato OBJ** línea por línea
+- **Extrae vértices** (líneas que empiezan con `v`)
+- **Extrae normales** (líneas que empiezan con `vn`)
+- **Extrae caras/triángulos** (líneas que empiezan con `f`)
+- **Calcula normales automáticamente** si el archivo no las incluye
+
+```rust
+// En main.rs
+let obj_model = ObjModel::load("assets/sphere.obj")?;
+let sphere_vertices = obj_model.vertices;
+let sphere_indices = obj_model.indices;
+```
+
+**¿Por qué es importante?** Permite usar modelos 3D creados en herramientas profesionales (Blender, Maya, etc.) y es una práctica estándar en gráficas por computadora.
+
+### 2. Framebuffer Personalizado
 
 El **framebuffer** (`framebuffer.rs`) es un buffer de píxeles que almacena la imagen antes de mostrarla en pantalla. En lugar de usar el framebuffer nativo de Raylib, implementamos uno propio que:
 
