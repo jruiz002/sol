@@ -369,25 +369,6 @@ fn temperature_to_color(intensity: f32) -> Vector3 {
 }
 ```
 
-## 📊 Evaluación del Proyecto
-
-### Cumplimiento de Requisitos
-
-| Criterio | Pts | ✓ | Implementación |
-|----------|-----|---|----------------|
-| **Creatividad visual y realismo** | 30 | ✅ | 5 tipos de efectos combinados, gradiente físicamente inspirado |
-| **Complejidad del shader** | 40 | ✅ | 7 técnicas: Perlin + Turbulencia + Cellular + Emisión + Flare + Temperatura + Distorsión |
-| **Animación continua** | 20 | ✅ | Basada en `uniform time`, ciclos infinitos |
-| **Ruido con parámetros ajustables** | 20 | ✅ | 3 tipos de ruido + 2 parámetros editables |
-| **Emisión variable** | 15 | ✅ | Función seno para picos de energía |
-| **Distorsión en Vertex Shader** | 15 | ✅ | Desplazamiento por normal usando turbulencia |
-| **Gradiente dinámico por temperatura** | 20 | ✅ | 5 rangos de intensidad mapeados a colores |
-| **Documentación clara** | 10 | ✅ | README completo con explicaciones didácticas |
-
-**📈 Puntaje Total: 170 / 170**
-
----
-
 ## 📚 Conceptos de Gráficas por Computadora Demostrados
 
 ### Transformaciones Geométricas
